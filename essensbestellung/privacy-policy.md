@@ -1,6 +1,6 @@
 # Datenschutzerklärung – Essensbestellung
 
-**Letzte Aktualisierung:** März 2025  
+**Letzte Aktualisierung:** 25. November 2026  
 **Entwickler:** Martin Zanker  
 **Kontakt:** martinzankerdevelopment@gmail.com
 
@@ -8,80 +8,77 @@
 
 ## 1. Allgemeines
 
-Die App **Essensbestellung** ist eine interne iOS-Anwendung für den Grundschulhort und wird ausschließlich über Apple TestFlight verteilt. Sie ist nicht im App Store veröffentlicht. Die App dient der Erfassung, Verwaltung und dem Versand von Essensbestellungen für den Hortbetrieb.
+Die App **Essensbestellung** ist eine interne iOS-Anwendung des Grundschulhorts Westend-Drachen (Elterninitiative e.V., München). Sie ist nur für das Team des Horts bestimmt und nur mit einem Konto des Horts nutzbar. Die App wird über den App Store als nicht öffentlich auffindbare App („Unlisted App“) sowie über Apple TestFlight verteilt.
 
-Diese Datenschutzerklärung informiert darüber, welche Daten die App erhebt, wie sie verarbeitet werden und zu welchem Zweck.
+Die App dient der Planung, Verwaltung und dem Versand der wöchentlichen Essensbestellung beim Caterer.
 
 ---
 
 ## 2. Erhobene Daten und Verwendungszweck
 
-### 2.1 Bestelldaten (lokal & Cloud)
+### 2.1 Anmeldung
 
-Die App speichert folgende Bestelldaten lokal auf dem Gerät (via SwiftData) und synchronisiert sie über Google Firebase Firestore:
+Die App kann nur mit einem Konto des Horts genutzt werden. Konten legt ausschließlich der Hort an; eine Selbstregistrierung gibt es nicht. Verarbeitet werden:
+
+- E-Mail-Adresse des Kontos
+- Passwort (von Firebase Authentication nur verschlüsselt gespeichert)
+- technische Nutzerkennung (Firebase-UID)
+
+Die Anmeldung bleibt bis zur Abmeldung in der App im iOS-Schlüsselbund des Geräts gespeichert.
+
+**Zweck:** Nur berechtigte Personen des Hort-Teams erhalten Zugriff auf die Bestelldaten.
+
+### 2.2 Bestelldaten (lokal & Cloud)
+
+Die App speichert lokal auf dem Gerät (SwiftData) und synchronisiert über Google Firebase Firestore:
 
 - Kalenderwoche und Jahr der Bestellung
 - Portionsanzahl (gesamt und vegetarisch) je Wochentag
 - Auswahl von Speisen (Suppe, Hauptgericht, Nachspeise)
-- Sonderveranstaltungen und -ereignisse
+- Ferien-, Brotzeit- und Sondertage, Anmerkungen
 - Sendestatus und Sendedatum
-- Bewertungen der Gerichte
+- Bewertungen der Gerichte (Menge, Zubereitung, Beliebtheit)
 
-**Zweck:** Verwaltung der wöchentlichen Essensbestellung und Synchronisation zwischen mehreren Geräten innerhalb des Hortteams.
+Die App verarbeitet **keine Namen oder sonstigen Daten von Kindern oder Eltern**.
 
-### 2.2 Speisenliste (lokal & Cloud)
+**Zweck:** Verwaltung der wöchentlichen Essensbestellung; alle Geräte des Teams sehen denselben Stand.
 
-Die App speichert eine Speisenliste (Suppen, Gerichte, Nachspeisen) lokal und in der Cloud:
+### 2.3 Speisenliste (lokal & Cloud)
 
-- Name der Speise
-- Typ (Suppe, Gericht, Nachspeise)
+- Name und Typ der Speise (Suppe, Gericht, Nachspeise)
 - Sortierindex und Verwendungsverlauf
 
-**Zweck:** Wiederverwendung häufig bestellter Gerichte zur vereinfachten Bestelleingabe.
+**Zweck:** Wiederverwendung häufig bestellter Gerichte.
 
-### 2.3 E-Mail- und SMTP-Einstellungen
+### 2.4 E-Mail-Einstellungen
 
-Für den Versand der Bestellungen per E-Mail werden folgende Einstellungen gespeichert:
+- Mailserver, Port und Benutzername (lokal und Cloud)
+- Absender-, Empfänger- (Caterer) und BCC-Adressen mit Namen (lokal und Cloud)
+- Passwort des Mailkontos: ausschließlich verschlüsselt im iOS-Schlüsselbund des jeweiligen Geräts, **nicht** in der Cloud
 
-- SMTP-Server, Port und Benutzername (lokal in UserDefaults und Cloud)
-- SMTP-Passwort (verschlüsselt im iOS Keychain gespeichert, **nicht** in der Cloud)
-- Absender- und Empfängeradressen (Name und E-Mail)
-- BCC-Adresse
+**Zweck:** Versand der Bestellung per E-Mail an den Caterer.
 
-**Zweck:** Automatischer E-Mail-Versand der Essensbestellung als PDF-Anhang an den Essensanbieter.
+### 2.5 PDF-Erzeugung
 
-### 2.4 Firebase Authentication
+Aus den Bestelldaten wird ein PDF lokal auf dem Gerät erzeugt – für den Mailversand, die Vorschau und zum Teilen, wenn das Team dies auslöst.
 
-Die App nutzt **Firebase Anonymous Authentication**. Dabei wird eine anonyme Benutzer-ID erstellt, ohne dass persönliche Informationen wie Name oder E-Mail-Adresse erfasst werden.
+### 2.6 Technische Prüfung (App Check)
 
-**Zweck:** Zugriffskontrolle auf die Firestore-Datenbank.
-
-### 2.5 PDF-Generierung
-
-Aus den erfassten Bestelldaten wird ein PDF-Dokument erstellt und lokal gerendert.
-
-**Zweck:** Versand der Bestellung per E-Mail und Vorschau in der App.
-
-### 2.6 Geräteinterne Einstellungen
-
-Folgende Einstellungen werden lokal auf dem Gerät gespeichert (UserDefaults):
-
-- Standardwerte für Portionsanzahl und vegetarische Portionen
-- Konfiguration des Brotzeittages
-
-**Zweck:** Vereinfachung der wöchentlichen Dateneingabe durch Vorbelegen von Standardwerten.
+Über Firebase App Check und Apple App Attest wird geprüft, dass Anfragen an die Datenbank von der echten App stammen. Dabei werden keine Inhalte und keine personenbezogenen Daten des Teams übertragen.
 
 ---
 
 ## 3. Verwendete Dienste Dritter
 
-### Google Firebase (Firestore & Authentication)
+### Google Firebase (Firestore, Authentication, App Check)
 
-Die App nutzt Google Firebase, einen Cloud-Dienst von Google LLC, für die Datensynchronisation und anonyme Authentifizierung. Die Daten werden auf Servern von Google gespeichert.
+Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Firestore speichert die Daten in der Europäischen Union. Google verarbeitet die Daten im Auftrag; eine Übermittlung in die USA ist dabei nicht ausgeschlossen und erfolgt auf Grundlage des EU-US Data Privacy Framework bzw. von Standardvertragsklauseln.
 
-- Datenschutzerklärung von Google/Firebase: https://firebase.google.com/support/privacy
+- Datenschutzhinweise von Firebase: https://firebase.google.com/support/privacy
 
-Die in der Cloud gespeicherten Daten enthalten **keine personenbezogenen Daten** der Kinder oder Eltern – ausschließlich operative Bestelldaten des Hortteams.
+### Mailserver des Horts
+
+Die Bestellung wird über den in den Einstellungen hinterlegten Mailserver an den Caterer gesendet; eine Kopie wird im Ordner „Gesendet“ dieses Mailkontos abgelegt.
 
 ---
 
@@ -95,30 +92,38 @@ Die App erhebt **keine** der folgenden Daten:
 - Kalender
 - Biometrische Daten
 - Daten von Kindern oder Eltern
+- Nutzungs- oder Analysedaten (keine Werbung, kein Tracking)
 
 ---
 
 ## 5. Datenweitergabe an Dritte
 
-Es werden **keine personenbezogenen Daten an Dritte weitergegeben**. Die SMTP-Zugangsdaten werden ausschließlich lokal im iOS Keychain gespeichert und niemals übertragen. Die Cloud-Synchronisation über Firebase dient ausschließlich der internen Nutzung durch das Hortteam.
+Daten werden nur an die oben genannten Dienste und – mit der Bestellung – an den Caterer weitergegeben. Es findet keine Weitergabe zu Werbe- oder Analysezwecken statt.
 
 ---
 
 ## 6. Datensicherheit
 
-- SMTP-Passwörter werden verschlüsselt im iOS Keychain gespeichert.
-- Die Kommunikation mit dem SMTP-Server erfolgt verschlüsselt via TLS oder STARTTLS.
-- Der Zugriff auf Firebase Firestore ist durch anonyme Authentifizierung abgesichert.
+- Zugriff auf die Datenbank nur für angemeldete Konten des Horts, die vom Hort freigeschaltet wurden.
+- Anfragen werden zusätzlich per App Check geprüft.
+- Passwörter von Mailkonten werden verschlüsselt im iOS-Schlüsselbund gespeichert.
+- Die Kommunikation mit Firebase und dem Mailserver erfolgt verschlüsselt (TLS bzw. STARTTLS).
 
 ---
 
-## 7. Verbreitung und Nutzerkreis
+## 7. Speicherdauer
 
-Die App wird ausschließlich über **Apple TestFlight** an das Hortteam verteilt und ist nicht öffentlich zugänglich. Sie ist nicht im App Store erhältlich.
+Bestellungen und Speisen bleiben gespeichert, solange sie für die Organisation des Horts benötigt werden. Konten von Personen, die das Team verlassen, werden gelöscht. Auf Anfrage werden Daten gelöscht, soweit keine Aufbewahrungspflichten entgegenstehen.
 
 ---
 
-## 8. Kontakt
+## 8. Rechte der Betroffenen
+
+Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, in Bayern beim Bayerischen Landesamt für Datenschutzaufsicht (BayLDA).
+
+---
+
+## 9. Kontakt
 
 Bei Fragen zum Datenschutz wenden Sie sich bitte an:
 
