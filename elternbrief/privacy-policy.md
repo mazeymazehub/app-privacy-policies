@@ -1,6 +1,6 @@
 # Datenschutzerklärung – Elternbrief
 
-**Letzte Aktualisierung:** März 2025  
+**Letzte Aktualisierung:** 25. November 2026  
 **Entwickler:** Martin Zanker  
 **Kontakt:** martinzankerdevelopment@gmail.com
 
@@ -8,149 +8,122 @@
 
 ## 1. Allgemeines
 
-Die App **Elternbrief** ist eine interne iOS-Anwendung für den Grundschulhort und wird ausschließlich über Apple TestFlight verteilt. Sie ist nicht im App Store veröffentlicht. Die App dient der Erstellung und dem Versand des wöchentlichen Elternbriefs sowie des zugehörigen Wochenplans.
+Die App **Elternbrief** ist eine interne iOS- und iPadOS-Anwendung des Grundschulhorts Westend-Drachen (Elterninitiative e.V., München). Sie ist nur für das Team des Horts bestimmt und nur mit einem Konto des Horts nutzbar. Die App wird über den App Store als nicht öffentlich auffindbare App („Unlisted App“) sowie über Apple TestFlight verteilt.
 
-Diese Datenschutzerklärung informiert darüber, welche Daten die App erhebt, wie sie verarbeitet werden und zu welchem Zweck.
+Die App dient der Erstellung des wöchentlichen Wochenplans und dem Versand des Elternbriefs.
 
 ---
 
 ## 2. Erhobene Daten und Verwendungszweck
 
-### 2.1 Wochenplan-Daten (lokal & Cloud)
+### 2.1 Anmeldung
 
-Die App speichert folgende Wochenplan-Daten lokal auf dem Gerät (via SwiftData) und synchronisiert sie über Google Firebase Firestore:
+Die App kann nur mit einem Konto des Horts genutzt werden. Konten legt ausschließlich der Hort an; eine Selbstregistrierung gibt es nicht. Verarbeitet werden:
+
+- E-Mail-Adresse des Kontos
+- Passwort (von Firebase Authentication nur verschlüsselt gespeichert)
+- technische Nutzerkennung (Firebase-UID)
+
+Die Anmeldung bleibt bis zur Abmeldung in der App im iOS-Schlüsselbund des Geräts gespeichert.
+
+**Zweck:** Nur berechtigte Personen des Hort-Teams erhalten Zugriff auf die Daten.
+
+### 2.2 Wochenplan-Daten (lokal & Cloud)
+
+Die App speichert lokal (SwiftData) und synchronisiert über Google Firebase Firestore:
 
 - Kalenderwoche und Jahr
-- Aktivitäten und Ereignisse je Wochentag (Typ, Uhrzeit, Bezeichnung)
-- Veranstaltungsorte (Name und Apple-Maps-Link)
+- Aktivitäten und Ereignisse je Wochentag (Typ, Uhrzeit, Bezeichnung, Ort)
 - Sonderveranstaltungen (z. B. Feiertage, Elternabend, geschlossener Hort)
-- Notizen und Betreffzeile des Elternbriefs
-- Sendestatus und Sendedatum
+- Abwesenheiten, Praktika und Seminare von Teammitgliedern mit deren Namen bzw. Vornamen
+- bei Geburtstagsfeiern die **Vornamen der Geburtstagskinder**, sofern das Team sie einträgt
+- Notizen sowie Betreff und Texte des Elternbriefs, Sendestatus und Sendedatum
 
-**Zweck:** Erstellung des wöchentlichen Wochenplans und automatische Generierung des Elternbriefs.
+**Zweck:** Erstellung des wöchentlichen Wochenplans und des Elternbriefs.
 
-### 2.2 Elternbrief-Daten (lokal & Cloud)
+### 2.3 Textbausteine und Teamliste (lokal & Cloud)
 
-Die App erstellt automatisch oder manuell einen Elternbrief mit folgenden Inhalten:
+- wiederverwendbare Textbausteine
+- Namen der Teammitglieder (für Abwesenheiten und Vertretungen)
 
-- Anrede, Einleitung, variable Textabschnitte, Grußformel
-- Betreffzeile
-- Sendestatus und -datum
+**Zweck:** Vereinfachte Brieferstellung; einheitliche Daten auf allen Geräten des Teams.
 
-**Zweck:** Vorbereitung und Versand des wöchentlichen Elternbriefs per E-Mail.
+### 2.4 Ortssuche (Apple MapKit)
 
-### 2.3 Textbausteine (lokal & Cloud)
+Bei der Eingabe von Veranstaltungsorten wird die Apple-Ortssuche verwendet. Dabei werden nur die eingegebenen Suchbegriffe an Apple übermittelt; GPS-Standortdaten des Geräts werden **nicht** verwendet.
 
-Wiederverwendbare Textabschnitte (Textbausteine) werden lokal und in der Cloud gespeichert:
+### 2.5 E-Mail-Versand
 
-- Bezeichnung und Inhalt des Textbausteins
-- Erstellungs- und Änderungsdatum
+- Mailserver, Port und Benutzername (lokal und Cloud)
+- Absender-, Empfänger- und BCC-Adressen mit Namen (lokal und Cloud)
+- Passwort des Mailkontos: ausschließlich verschlüsselt im iOS-Schlüsselbund des jeweiligen Geräts, **nicht** in der Cloud
 
-**Zweck:** Vereinfachung der Brieferstellung durch vordefinierte, wiederverwendbare Texte.
+Der Elternbrief wird mit dem Wochenplan als PDF über den Mailserver des Horts versendet; eine Kopie wird im Ordner „Gesendet“ dieses Mailkontos abgelegt.
 
-### 2.4 Teamdaten
+### 2.6 PDF-Erzeugung und Logo
 
-Namen der Teammitglieder (Erzieherpersonal) werden lokal auf dem Gerät gespeichert (UserDefaults).
+Der Wochenplan wird lokal als PDF erzeugt. Ein Logo für den Wochenplan kann aus Fotos oder Dateien gewählt werden; die App erhält dabei nur das ausgewählte Bild.
 
-**Zweck:** Anzeige von Abwesenheiten einzelner Teammitglieder im Wochenplan und Elternbrief.
+### 2.7 Technische Prüfung (App Check)
 
-### 2.5 Ortssuche (Apple MapKit)
-
-Bei der Eingabe von Veranstaltungsorten wird die **Apple MapKit-Ortssuche** verwendet. Die eingegebenen Suchbegriffe werden an Apple übermittelt, um Vorschläge für Orte oder Points of Interest zurückzugeben.
-
-- Es werden nur Suchanfragen (Texteingaben) übermittelt.
-- Es werden **keine GPS-Standortdaten** des Geräts verwendet oder übertragen.
-
-**Zweck:** Komfortable Suche und Auswahl von Veranstaltungsorten für den Wochenplan.
-
-- Datenschutzerklärung von Apple Maps: https://www.apple.com/de/privacy/
-
-### 2.6 E-Mail- und SMTP-Einstellungen
-
-Für den Versand des Elternbriefs per E-Mail werden folgende Einstellungen gespeichert:
-
-- SMTP-Server, Port und Benutzername (lokal in UserDefaults und Cloud)
-- SMTP-Passwort (verschlüsselt im iOS Keychain gespeichert, **nicht** in der Cloud)
-- Absender- und Empfängeradressen (Name und E-Mail)
-- BCC-Adresse
-
-**Zweck:** Automatischer E-Mail-Versand des Elternbriefs mit angehängtem Wochenplan als PDF.
-
-### 2.7 Firebase Authentication
-
-Die App nutzt **Firebase Anonymous Authentication**. Dabei wird eine anonyme Benutzer-ID erstellt, ohne dass persönliche Informationen wie Name oder E-Mail-Adresse erfasst werden.
-
-**Zweck:** Zugriffskontrolle auf die Firestore-Datenbank.
-
-### 2.8 PDF-Generierung
-
-Aus den Wochenplan-Daten wird ein PDF-Dokument erstellt und lokal gerendert.
-
-**Zweck:** Versand als Anhang im Elternbrief und Vorschau in der App.
-
-### 2.9 Geräteinterne Einstellungen
-
-Folgende Einstellungen werden lokal auf dem Gerät gespeichert (UserDefaults):
-
-- SMTP-Konfiguration
-- Synchronisierungs-Zeitstempel
-
-**Zweck:** Persistenz der App-Konfiguration über Sitzungen hinweg.
+Über Firebase App Check und Apple App Attest wird geprüft, dass Anfragen an die Datenbank von der echten App stammen. Dabei werden keine personenbezogenen Daten übertragen.
 
 ---
 
 ## 3. Verwendete Dienste Dritter
 
-### Google Firebase (Firestore & Authentication)
+### Google Firebase (Firestore, Authentication, App Check)
 
-Die App nutzt Google Firebase, einen Cloud-Dienst von Google LLC, für die Datensynchronisation und anonyme Authentifizierung. Die Daten werden auf Servern von Google gespeichert.
+Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Firestore speichert die Daten in der Europäischen Union. Google verarbeitet die Daten im Auftrag; eine Übermittlung in die USA ist dabei nicht ausgeschlossen und erfolgt auf Grundlage des EU-US Data Privacy Framework bzw. von Standardvertragsklauseln.
 
-- Datenschutzerklärung von Google/Firebase: https://firebase.google.com/support/privacy
+- Datenschutzhinweise von Firebase: https://firebase.google.com/support/privacy
 
-Die in der Cloud gespeicherten Daten enthalten **keine personenbezogenen Daten** der Kinder oder Eltern – ausschließlich operative Planungsdaten des Hortteams.
+### Apple (MapKit, App Attest)
 
-### Apple MapKit
+- Datenschutzrichtlinie von Apple: https://www.apple.com/de/legal/privacy/
 
-Bei der Standortsuche für Veranstaltungsorte werden Texteingaben an den Apple-Suchdienst übermittelt. Es werden keine GPS-Daten verwendet.
-
-- Datenschutzerklärung von Apple: https://www.apple.com/de/privacy/
+Die App nutzt **keine** Analyse-, Werbe- oder Tracking-Dienste.
 
 ---
 
 ## 4. Nicht erhobene Daten
 
-Die App erhebt **keine** der folgenden Daten:
-
-- Kamera oder Fotos
+- Kamera, Mikrofon
 - GPS-Standortdaten
-- Kontakte
-- Kalender
+- Kontakte, Kalender
 - Biometrische Daten
-- Personenbezogene Daten der Kinder oder Eltern
+- Nachnamen, Adressen oder Kontaktdaten von Kindern und Eltern
+- Nutzungs- oder Analysedaten
 
 ---
 
 ## 5. Datenweitergabe an Dritte
 
-Es werden **keine personenbezogenen Daten an Dritte weitergegeben**. Die SMTP-Zugangsdaten werden ausschließlich lokal im iOS Keychain gespeichert und niemals an Dritte übermittelt. Die Cloud-Synchronisation über Firebase und die Ortssuche über Apple MapKit dienen ausschließlich der internen Nutzung durch das Hortteam.
+Daten werden nur an die oben genannten Dienste und – mit dem Elternbrief – an die Empfängeradressen des Horts weitergegeben. Es findet keine Weitergabe zu Werbe- oder Analysezwecken statt.
 
 ---
 
 ## 6. Datensicherheit
 
-- SMTP-Passwörter werden verschlüsselt im iOS Keychain gespeichert.
-- Die Kommunikation mit dem SMTP-Server erfolgt verschlüsselt via TLS oder STARTTLS.
-- Der Zugriff auf Firebase Firestore ist durch anonyme Authentifizierung abgesichert.
+- Zugriff auf die Datenbank nur für angemeldete, vom Hort freigeschaltete Konten; zusätzlich App Check.
+- Passwörter von Mailkonten liegen verschlüsselt im iOS-Schlüsselbund.
+- Die Kommunikation mit Firebase und dem Mailserver erfolgt verschlüsselt (TLS bzw. STARTTLS).
 
 ---
 
-## 7. Verbreitung und Nutzerkreis
+## 7. Speicherdauer
 
-Die App wird ausschließlich über **Apple TestFlight** an das Hortteam verteilt und ist nicht öffentlich zugänglich. Sie ist nicht im App Store erhältlich.
+Wochenpläne und Briefe bleiben gespeichert, solange sie für die Organisation des Horts benötigt werden. Konten von Personen, die das Team verlassen, werden gelöscht. Auf Anfrage werden Daten gelöscht, soweit keine Aufbewahrungspflichten entgegenstehen.
 
 ---
 
-## 8. Kontakt
+## 8. Rechte der Betroffenen
+
+Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Außerdem können Sie sich bei einer Datenschutz-Aufsichtsbehörde beschweren, in Bayern beim Bayerischen Landesamt für Datenschutzaufsicht (BayLDA).
+
+---
+
+## 9. Kontakt
 
 Bei Fragen zum Datenschutz wenden Sie sich bitte an:
 

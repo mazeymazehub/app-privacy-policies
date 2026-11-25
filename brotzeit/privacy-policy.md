@@ -1,6 +1,6 @@
 # Datenschutzerklärung – Brotzeit
 
-**Letzte Aktualisierung:** November 2026  
+**Letzte Aktualisierung:** 25. November 2026  
 **Entwickler:** Martin Zanker  
 **Kontakt:** martinzankerdevelopment@gmail.com
 
@@ -8,7 +8,7 @@
 
 ## 1. Allgemeines
 
-Die App **Brotzeit** ist eine interne iOS- und iPadOS-Anwendung für den Grundschulhort Westend-Drachen (Elterninitiative e. V., München) und wird ausschließlich über Apple TestFlight verteilt. Sie ist nicht im App Store veröffentlicht.
+Die App **Brotzeit** ist eine interne iOS- und iPadOS-Anwendung für den Grundschulhort Westend-Drachen (Elterninitiative e. V., München). Sie ist nur mit einem Konto des Horts nutzbar und wird über den App Store als nicht öffentlich auffindbare App („Unlisted App“) sowie über Apple TestFlight verteilt.
 
 Die App ersetzt die bisherige Papierliste für den Brotzeittag: Die Kinder tragen auf den Hort-iPads ein, ob sie am Brotzeittag im Hort sind und was sie essen möchten. Das Hortteam legt die Brotzeiten an, behält den Überblick über fehlende Einträge und erstellt daraus eine Einkaufsliste als PDF.
 
@@ -47,9 +47,9 @@ Es werden **keine** Angaben zu Allergien, Unverträglichkeiten oder sonstigen Ge
 
 **Zweck:** Einheitliche Konfiguration auf allen Geräten des Hortes.
 
-### 2.4 Firebase Authentication
+### 2.4 Anmeldung (Firebase Authentication)
 
-Die App nutzt **Firebase Anonymous Authentication**. Dabei wird eine anonyme Benutzer-ID erstellt, ohne dass Name, E-Mail-Adresse oder andere persönliche Informationen erfasst werden.
+Die App kann nur mit einem Konto des Horts genutzt werden; die Hort-iPads sind mit einem gemeinsamen Hort-Konto angemeldet. Konten legt ausschließlich der Hort an; eine Selbstregistrierung gibt es nicht. Verarbeitet werden die E-Mail-Adresse des Kontos, das Passwort (von Firebase nur verschlüsselt gespeichert) und eine technische Nutzerkennung. Die Kinder melden sich nicht an und haben keine eigenen Konten.
 
 **Zweck:** Zugriffskontrolle auf die Firestore-Datenbank.
 
@@ -75,13 +75,13 @@ Die Brotzeitliste wird als PDF lokal auf dem Gerät erzeugt. Sie verlässt das G
 
 ### Google Firebase (Firestore, Authentication, App Check)
 
-Die App nutzt Google Firebase für die Datensynchronisation zwischen den Geräten des Hortes, die anonyme Anmeldung und App Check. Die Firestore-Datenbank liegt in der **EU-Region »eur3«** (Rechenzentren in Belgien und den Niederlanden).
+Die App nutzt Google Firebase (Anbieter: Google Ireland Limited, Dublin) für die Datensynchronisation zwischen den Geräten des Hortes, die Anmeldung und App Check. Google verarbeitet die Daten im Auftrag; eine Übermittlung in die USA ist dabei nicht ausgeschlossen und erfolgt auf Grundlage des EU-US Data Privacy Framework bzw. von Standardvertragsklauseln. Die Firestore-Datenbank liegt in der **EU-Region »eur3«** (Rechenzentren in Belgien und den Niederlanden).
 
 - Datenschutzinformationen von Google/Firebase: https://firebase.google.com/support/privacy
 
-### Apple (App Attest, TestFlight)
+### Apple (App Attest, App Store, TestFlight)
 
-App Attest ist ein Dienst von Apple. Bei der Verteilung über TestFlight kann Apple eigene Daten erheben (z. B. Absturzberichte oder Feedback der Testpersonen). Hierfür gilt die Datenschutzrichtlinie von Apple: https://www.apple.com/de/legal/privacy/
+App Attest ist ein Dienst von Apple. Bei der Verteilung über den App Store und TestFlight kann Apple eigene Daten erheben (z. B. Absturzberichte oder Feedback der Testpersonen). Hierfür gilt die Datenschutzrichtlinie von Apple: https://www.apple.com/de/legal/privacy/
 
 Die App nutzt **keine** Analyse-, Werbe- oder Tracking-Dienste.
 
@@ -110,7 +110,7 @@ Es werden **keine personenbezogenen Daten verkauft, für Werbung genutzt oder an
 ## 6. Datensicherheit
 
 - Die Übertragung zwischen App und Firebase erfolgt verschlüsselt (TLS).
-- Zugriffe auf die Datenbank erfordern eine Anmeldung und werden zusätzlich über App Check abgesichert.
+- Zugriffe auf die Datenbank erfordern die Anmeldung mit einem vom Hort freigeschalteten Konto und werden zusätzlich über App Check abgesichert.
 - Der Team-Bereich auf den Hort-iPads ist durch eine PIN geschützt.
 - Lokal gespeicherte Daten liegen im geschützten Speicherbereich der App und werden von iOS verschlüsselt.
 
@@ -137,7 +137,7 @@ Außerdem besteht ein Beschwerderecht bei einer Datenschutz-Aufsichtsbehörde, i
 
 ## 9. Verbreitung und Nutzerkreis
 
-Die App wird ausschließlich über **Apple TestFlight** an das Hortteam und auf die Hort-iPads verteilt und ist nicht öffentlich zugänglich. Sie ist nicht im App Store erhältlich.
+Die App wird über den App Store als nicht öffentlich auffindbare App („Unlisted App“, nur per Link) sowie über Apple TestFlight an das Hortteam und auf die Hort-iPads verteilt. Ohne Konto des Horts ist sie nicht nutzbar.
 
 ---
 
